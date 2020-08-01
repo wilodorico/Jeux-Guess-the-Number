@@ -1,0 +1,10 @@
+.jeux {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin: auto;
+}
+
+.btn, label, input, button {
+    margin: 10px;
+}
