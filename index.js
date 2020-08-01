@@ -18,17 +18,8 @@ function init()
 let aleatoire = init();
 //console.log(aleatoire);
 
-// function clic btn Tester : 
-const btnTester = document.getElementById('test');
-btnTester.addEventListener('click', function()
-{
-    // code comparaison de numero aleatoire avec numero saisi
-    let numSaisi = numeroSaisi.value;
-    let numRandom = aleatoire;
-    let test = compare(numSaisi, numRandom);
-    //console.log(test);
-    
-    function compare(valeur, random)
+//function pour comparer les valeurs
+function compare(valeur, random)
     {
         nombreEssai--;
         quantiteEssai.textContent = nombreEssai;
@@ -47,6 +38,18 @@ btnTester.addEventListener('click', function()
             return "ça bug !!!"
         }
     };
+
+// function clic btn Tester : 
+const btnTester = document.getElementById('test');
+btnTester.addEventListener('click', function()
+{
+    // code comparaison de numero aleatoire avec numero saisi
+    let numSaisi = numeroSaisi.value;
+    let numRandom = aleatoire;
+    let test = compare(numSaisi, numRandom);
+    //console.log(test);
+    
+    
     //création d'un élément <p> avec la valeur tester
     let newP = document.createElement('p');
     newP.innerHTML = `<p>${test} </p>`;
