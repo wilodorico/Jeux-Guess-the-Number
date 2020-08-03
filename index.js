@@ -1,4 +1,4 @@
-const recupSaisi =document.getElementById('main');
+const recupSaisi = document.getElementById('main');
 const numeroSaisi = document.getElementById('numero');
 const quantiteEssai = document.getElementById('essai');
 let nombreEssai;
@@ -13,8 +13,8 @@ function init()
 {
     let resetP = document.querySelectorAll('#main p');
     for(let i = 0; i < resetP.length; i++){
-        resetP[i].textContent = "";
-    }
+        resetP[i].remove();
+    }  
     nombreEssai = 10;
     quantiteEssai.textContent = nombreEssai;
     numeroSaisi.value = "";
@@ -23,7 +23,6 @@ function init()
     aleatoire = Math.round(Math.random() * 100);
     //console.log(aleatoire);    
 };
-
 
 //function pour comparer les valeurs
 function compare(valeur, random)
@@ -61,5 +60,5 @@ btnTester.addEventListener('click', function()
     //création d'un élément <p> avec la valeur tester
     let newP = document.createElement('p');
     newP.innerHTML = `<p class="paragraphe">${test} </p>`;
-    recupSaisi.appendChild(newP);     
+    recupSaisi.appendChild(newP);    
 });
