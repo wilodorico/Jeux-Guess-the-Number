@@ -41,7 +41,7 @@ function compare(valeur, random)
             btnTester.setAttribute('disabled','');
             return `${valeur} C'est gagné ! <strong> click START pour recommencer</strong>`;
         } else {
-            return "ça bug !!!"
+            return alert("Click sur Start pour commencer !!!")
         }
     };
 
