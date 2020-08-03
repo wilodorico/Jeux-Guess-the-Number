@@ -1,22 +1,29 @@
 const recupSaisi =document.getElementById('main');
 const numeroSaisi = document.getElementById('numero');
 const quantiteEssai = document.getElementById('essai');
-let nombreEssai = 10;
-quantiteEssai.textContent = nombreEssai;
+let nombreEssai;
+let aleatoire;
 
 //Refresh de la page au click btn start
 let start = document.getElementById('start');
-start.addEventListener('click', function(){
-    window.location.reload();
-});
+start.addEventListener('click', init);
 
 //initialisation d'un chiffre aleatoire
 function init() 
 {
-    return Math.floor(Math.random() * 100) + 1;  
+    let resetP = document.querySelectorAll('#main p');
+    for(let i = 0; i < resetP.length; i++){
+        resetP[i].textContent = "";
+    }
+    nombreEssai = 10;
+    quantiteEssai.textContent = nombreEssai;
+    numeroSaisi.value = "";
+    numeroSaisi.focus();
+    btnTester.removeAttribute('disabled','');
+    aleatoire = Math.round(Math.random() * 100);
+    //console.log(aleatoire);    
 };
-let aleatoire = init();
-//console.log(aleatoire);
+
 
 //function pour comparer les valeurs
 function compare(valeur, random)
@@ -47,11 +54,12 @@ btnTester.addEventListener('click', function()
     let numSaisi = numeroSaisi.value;
     let numRandom = aleatoire;
     let test = compare(numSaisi, numRandom);
+    numeroSaisi.value = "";
+    numeroSaisi.focus();
     //console.log(test);
-    
-    
+
     //création d'un élément <p> avec la valeur tester
     let newP = document.createElement('p');
-    newP.innerHTML = `<p>${test} </p>`;
+    newP.innerHTML = `<p class="paragraphe">${test} </p>`;
     recupSaisi.appendChild(newP);     
 });
