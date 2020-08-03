@@ -19,6 +19,7 @@ function init()
     quantiteEssai.textContent = nombreEssai;
     numeroSaisi.value = "";
     numeroSaisi.focus();
+    numeroSaisi.setAttribute('onkeypress', 'pressEnter(event)');
     btnTester.removeAttribute('disabled','');
     aleatoire = Math.round(Math.random() * 100);
     //console.log(aleatoire);    
