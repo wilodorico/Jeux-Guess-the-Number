@@ -38,6 +38,8 @@ function compare(valeur, random)
         } else if(valeur > random){
             return valeur + " " + "C'est moins !";
         } else if(valeur == random){
+            //window.test = function(){}; // annule la touche entrée
+            numeroSaisi.removeAttribute('onkeypress', '');
             btnTester.setAttribute('disabled','');
             return `${valeur} C'est gagné ! <strong> click START pour recommencer</strong>`;
         } else {
@@ -47,7 +49,9 @@ function compare(valeur, random)
 
 // function clic btn Tester : 
 const btnTester = document.getElementById('test');
-btnTester.addEventListener('click', function()
+btnTester.addEventListener('click', test);
+
+function test()
 {
     // code comparaison de numero aleatoire avec numero saisi
     let numSaisi = numeroSaisi.value;
@@ -61,4 +65,13 @@ btnTester.addEventListener('click', function()
     let newP = document.createElement('p');
     newP.innerHTML = `<p class="paragraphe">${test} </p>`;
     recupSaisi.appendChild(newP);    
-});
+};
+
+
+function pressEnter(event) {
+    let code = event.which || event.keyCode; //Selon le navigateur c'est which ou keyCode
+    if (code == 13) { //le code de la touche Enter
+        return test();
+    }
+}
+
