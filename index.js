@@ -18,7 +18,6 @@ let minigame = {
         this.numeroSaisi.setAttribute('onkeypress', 'minigame.pressEnter(event)');
         this.btnTester.removeAttribute('disabled', '');
         this.aleatoire = Math.round(Math.random() * 100);
-        console.log(this.aleatoire);
     },
     init: function() {
         let startBtn = document.getElementById('start');
