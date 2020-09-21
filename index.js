@@ -1,78 +1,73 @@
-const recupSaisi = document.getElementById('main');
-const numeroSaisi = document.getElementById('numero');
-const quantiteEssai = document.getElementById('essai');
-let nombreEssai;
-let aleatoire;
+let minigame = {
+    recupSaisi: document.getElementById('main'),
+    numeroSaisi: document.getElementById('numero'),
+    quantiteEssai: document.getElementById('essai'),
+    btnTester: document.getElementById('test'),
+    nombreEssai: 0,
+    aleatoire: 0,
 
-//Refresh de la page au click btn start
-let start = document.getElementById('start');
-start.addEventListener('click', init);
-
-//initialisation d'un chiffre aleatoire
-function init() 
-{
-    let resetP = document.querySelectorAll('#main p');
-    for(let i = 0; i < resetP.length; i++){
-        resetP[i].remove();
-    }  
-    nombreEssai = 10;
-    quantiteEssai.textContent = nombreEssai;
-    numeroSaisi.value = "";
-    numeroSaisi.focus();
-    numeroSaisi.setAttribute('onkeypress', 'pressEnter(event)');
-    btnTester.removeAttribute('disabled','');
-    aleatoire = Math.round(Math.random() * 100);
-    //console.log(aleatoire);    
-};
-
-//function pour comparer les valeurs
-function compare(valeur, random)
-    {
-        nombreEssai--;
-        quantiteEssai.textContent = nombreEssai;
-        if(nombreEssai == 0){
-            btnTester.setAttribute('disabled','');
-            alert("Dommage C'est perdu ! Il fallait trouver le chiffre : " + aleatoire);
+    start: function() {
+        let resetP = document.querySelectorAll('#main p');
+        for (let i = 0; i < resetP.length; i++) {
+            resetP[i].remove();
         }
-        if(valeur < random){
+        this.nombreEssai = 10;
+        this.quantiteEssai.textContent = this.nombreEssai;
+        this.numeroSaisi.value = "";
+        this.numeroSaisi.focus();
+        this.numeroSaisi.setAttribute('onkeypress', 'minigame.pressEnter(event)');
+        this.btnTester.removeAttribute('disabled', '');
+        this.aleatoire = Math.round(Math.random() * 100);
+        console.log(this.aleatoire);
+    },
+    init: function() {
+        let startBtn = document.getElementById('start');
+        startBtn.addEventListener('click', this.start.bind(this));
+        this.btnTester.addEventListener('click', this.test.bind(this));
+
+    },
+    compare: function(valeur, random) {
+        if (this.nombreEssai <= 0) {
+            alert("Click sur Start pour commencer !!!");
+            return "";
+        }
+        this.nombreEssai--;
+        this.quantiteEssai.textContent = this.nombreEssai;
+        if (this.nombreEssai == 0 && valeur != random) {
+            this.btnTester.setAttribute('disabled', '');
+            alert("Dommage C'est perdu ! Il fallait trouver le chiffre : " + this.aleatoire);
+            return " ";
+        }
+
+        if (valeur < random) {
             return valeur + " " + "C'est plus !";
-        } else if(valeur > random){
+        } else if (valeur > random) {
             return valeur + " " + "C'est moins !";
-        } else if(valeur == random){
-            //window.test = function(){}; // annule la touche entrée
-            numeroSaisi.removeAttribute('onkeypress', '');
-            btnTester.setAttribute('disabled','');
+        } else if (valeur == random) {
+            this.numeroSaisi.removeAttribute('onkeypress', '');
+            this.btnTester.setAttribute('disabled', '');
             return `${valeur} C'est gagné ! <strong> click START pour recommencer</strong>`;
-        } else {
-            return alert("Click sur Start pour commencer !!!")
         }
-    };
+    },
+    test: function() {
+        // code comparaison de numero aleatoire avec numero saisi
+        let numSaisi = this.numeroSaisi.value;
+        let test = this.compare(numSaisi, this.aleatoire);
+        this.numeroSaisi.value = "";
+        this.numeroSaisi.focus();
+        //console.log(test);
 
-// function clic btn Tester : 
-const btnTester = document.getElementById('test');
-btnTester.addEventListener('click', test);
-
-function test()
-{
-    // code comparaison de numero aleatoire avec numero saisi
-    let numSaisi = numeroSaisi.value;
-    let numRandom = aleatoire;
-    let test = compare(numSaisi, numRandom);
-    numeroSaisi.value = "";
-    numeroSaisi.focus();
-    //console.log(test);
-
-    //création d'un élément <p> avec la valeur tester
-    let newP = document.createElement('p');
-    newP.innerHTML = `<p class="paragraphe">${test} </p>`;
-    recupSaisi.appendChild(newP);    
-};
-
-
-function pressEnter(event) {
-    let code = event.which || event.keyCode; //Selon le navigateur c'est which ou keyCode
-    if (code == 13) { //le code de la touche Enter
-        return test();
-    }
+        //création d'un élément <p> avec la valeur tester
+        let newP = document.createElement('p');
+        newP.innerHTML = `<p class="paragraphe">${test} </p>`;
+        this.recupSaisi.appendChild(newP);
+    },
+    pressEnter: function(event) {
+        let code = event.which || event.keyCode; //Selon le navigateur c'est which ou keyCode
+        if (code == 13) { //le code de la touche Enter
+            return this.test();
+        }
+    },
 }
 
+minigame.init();
